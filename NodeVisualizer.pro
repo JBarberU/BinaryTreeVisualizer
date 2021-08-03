@@ -10,13 +10,20 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    nodeview.cpp \
+    tree.cpp \
+    treenode.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    nodeview.h \
+    tree.h \
+    treenode.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    nodeview.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
