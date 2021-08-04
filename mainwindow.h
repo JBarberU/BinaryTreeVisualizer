@@ -7,7 +7,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class Tree;
+class Dag;
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +19,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    Tree* m_tree;
+    Dag* m_dag;
 };
 #endif // MAINWINDOW_H

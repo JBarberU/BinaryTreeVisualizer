@@ -10,6 +10,70 @@
     <height>151</height>
    </rect>
   </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -17,13 +81,61 @@
    <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
    <item>
     <widget class="QLabel" name="lbl_title">
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>176</red>
+           <green>176</green>
+           <blue>176</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>176</red>
+           <green>176</green>
+           <blue>176</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>190</red>
+           <green>190</green>
+           <blue>190</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Title</string>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
+     </property>
+     <property name="margin">
+      <number>0</number>
      </property>
     </widget>
    </item>
@@ -41,36 +153,30 @@
     </spacer>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="w_valueEdit" native="true">
      <property name="minimumSize">
       <size>
        <width>0</width>
        <height>30</height>
       </size>
      </property>
-     <widget class="QSlider" name="sl_value">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>10</y>
-        <width>161</width>
-        <height>20</height>
-       </rect>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
       </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+      <property name="leftMargin">
+       <number>0</number>
       </property>
-     </widget>
-     <widget class="QLineEdit" name="le_value">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>0</y>
-        <width>161</width>
-        <height>23</height>
-       </rect>
+      <property name="topMargin">
+       <number>0</number>
       </property>
-     </widget>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+     </layout>
     </widget>
    </item>
   </layout>

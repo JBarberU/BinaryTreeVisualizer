@@ -9,17 +9,19 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dag.cpp \
+    edge.cpp \
     main.cpp \
     mainwindow.cpp \
-    nodeview.cpp \
-    tree.cpp \
-    treenode.cpp
+    node.cpp \
+    nodeview.cpp
 
 HEADERS += \
+    dag.h \
+    edge.h \
     mainwindow.h \
-    nodeview.h \
-    tree.h \
-    treenode.h
+    node.h \
+    nodeview.h
 
 FORMS += \
     mainwindow.ui \

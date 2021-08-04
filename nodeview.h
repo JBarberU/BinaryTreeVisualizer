@@ -7,14 +7,14 @@ namespace Ui {
 class NodeView;
 }
 
-class TreeNode;
+class INode;
 
 class NodeView : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit NodeView(TreeNode* tn, QWidget *parent = nullptr);
+    explicit NodeView(INode* node, QWidget *parent = nullptr);
     ~NodeView();
 
     void paintEvent(QPaintEvent *event) override;
@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::NodeView *ui;
-    TreeNode* m_treeNode;
+    INode* m_node;
 };
 
 #endif // NODEVIEW_H
