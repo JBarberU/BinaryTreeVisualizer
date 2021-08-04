@@ -8,6 +8,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class Dag;
+class INode;
 
 class MainWindow : public QMainWindow
 {
@@ -18,7 +19,10 @@ public:
     ~MainWindow();
 
 private:
+    void updateDagView();
+
     Ui::MainWindow *ui;
     Dag* m_dag;
+    INode* m_head;
 };
 #endif // MAINWINDOW_H

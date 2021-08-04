@@ -22,6 +22,9 @@ NodeView::NodeView(INode* node, QWidget *parent)
 {
 
     ui->setupUi(this);
+    setGeometry(pos().x(), pos().y(), WIDTH, HEIGHT);
+
+    ui->lbl_title->setText(node->name());
 
     Node<QString>* strNode = m_node->asType<QString>();
 

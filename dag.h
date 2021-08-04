@@ -18,12 +18,15 @@ public:
     Dag();
 
     template<typename T>
-    Node<T>* createNode(const QString& name)
+    Node<T>* createNode(const QString& name, const T& value)
     {
-        m_nodes.push_back(new Node<T>(name));
+        Node<T>* n = new Node<T>(name, value);
+        m_nodes.push_back(n);
+        return n;
     }
 
     void connect(INode* left, INode* right);
+    std::vector<INode*> getConnected(INode* node) const;
 
     ~Dag();
 

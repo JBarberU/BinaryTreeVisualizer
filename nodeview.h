@@ -19,6 +19,9 @@ public:
 
     void paintEvent(QPaintEvent *event) override;
 
+    static constexpr int WIDTH = 200;
+    static constexpr int HEIGHT = 150;
+
 private slots:
     void on_btn_left_clicked();
 
