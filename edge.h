@@ -6,20 +6,20 @@ class INode;
 class Edge
 {
 public:
-    Edge(INode* left, INode* right)
-        : m_left(left)
-        , m_right(right)
+    Edge(INode* parent, INode* child)
+        : m_parent(parent)
+        , m_child(child)
     {}
 
-    INode* left() const
-    { return m_left; }
+    INode* parent() const
+    { return m_parent; }
 
-    INode* right() const
-    { return m_right; }
+    INode* child() const
+    { return m_child; }
 
 private:
-    INode* m_left;
-    INode* m_right;
+    INode* m_parent;
+    INode* m_child;
 };
 
 #endif // EDGE_H

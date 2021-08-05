@@ -25,8 +25,9 @@ public:
         return n;
     }
 
-    void connect(INode* left, INode* right);
-    std::vector<INode*> getConnected(INode* node) const;
+    void connect(INode* parent, INode* child);
+//    std::vector<INode*> getConnected(INode* node) const;
+    std::vector<INode*> getChildren(INode* node) const;
 
     ~Dag();
 

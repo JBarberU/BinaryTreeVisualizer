@@ -20,24 +20,18 @@ Dag::~Dag()
 
 }
 
-void Dag::connect(INode *left, INode *right)
+void Dag::connect(INode *parent, INode *child)
 {
-    m_edges.push_back(new Edge(left, right));
+    m_edges.push_back(new Edge(parent, child));
 }
 
-std::vector<INode*> Dag::getConnected(INode* node) const
+std::vector<INode*> Dag::getChildren(INode *node) const
 {
     std::vector<INode*> ret;
     for (const Edge* e : m_edges)
     {
-        if (e->left() == node)
-        {
-            ret.push_back(e->right());
-        }
-        else if (e->right() == node)
-        {
-            ret.push_back(e->left());
-        }
+        if (e->parent() == node)
+            ret.push_back(e->child());
     }
     return ret;
 }

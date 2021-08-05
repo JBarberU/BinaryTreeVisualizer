@@ -4,10 +4,13 @@
 #include "node.h"
 #include "dag.h"
 #include <map>
+#include <QLabel>
+#include <QPaintEngine>
 
 namespace
 {
-constexpr int PADDING = 30;
+constexpr int PADDING_Y = 50;
+constexpr int PADDING_X = 30;
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -21,37 +24,49 @@ MainWindow::MainWindow(QWidget *parent)
     m_head = m_dag->createNode<float>("Head node", 13.37);
     INode* node1l = m_dag->createNode<QString>("Left child", "Hello this is node");
     INode* node1r = m_dag->createNode<float>("Right child", 42);
-    m_dag->connect(m_head, node1l);
     m_dag->connect(m_head, node1r);
+    m_dag->connect(m_head, node1l);
 
 
-    INode* node1ll = m_dag->createNode<QString>("Left child", "other");
-    INode* node1lr = m_dag->createNode<float>("Right child", 78);
-    m_dag->connect(node1l, node1ll);
+    INode* node1ll = m_dag->createNode<QString>("ll child", "other");
+    INode* node1lr = m_dag->createNode<float>("lr child", 78);
     m_dag->connect(node1l, node1lr);
+    m_dag->connect(node1l, node1ll);
+
+    INode* node1rl = m_dag->createNode<QString>("rl child", "other");
+    INode* node1rr = m_dag->createNode<float>("rr child", 78);
+    m_dag->connect(node1r, node1rr);
+    m_dag->connect(node1r, node1rl);
 
     updateDagView();
 //    INode* tn = new Node<QString>("Testing Node", "Some Text");
 }
 
-void recursePlaceNodeViews(QWidget* w, INode* node, const QRect& placement, Dag* dag, std::map<INode*, NodeView*>& nodeViews)
+int getDepth(Dag* dag, INode* node)
+{
+    int d = 0;
+    for (INode* n : dag->getChildren(node))
+    {
+        d = std::max(d, getDepth(dag, n));
+    }
+    return 1 + d;
+}
+
+void recursePlaceNodeViews(QWidget* w, INode* node, const QRect& placement, Dag* dag, std::map<INode*, NodeView*>& nodeViews, int distanceFromBottom)
 {
     NodeView* nv = new NodeView(node, w);
     nodeViews[node] = nv;
     nv->move(placement.x(), placement.y());
 
-    int modX = 4 * placement.size().width() / 6;
-    for (INode* n : dag->getConnected(node))
+    int modX = PADDING_X + ((distanceFromBottom-1) * placement.width() / 2);
+    for (INode* n : dag->getChildren(node))
     {
-        if (nodeViews.find(n) != nodeViews.end())
-            continue;
-
         QRect r = placement;
-        r.moveTo(r.x() + modX, r.y() + placement.size().height() + PADDING);
-        modX = -modX;
+        QPoint p(r.x() + modX, r.y() + placement.size().height() + PADDING_Y);
+        r.moveTo(p);
 
-        //QPoint thisPos(placement.x() + modX, placement.y() + placement.size().height() + PADDING);
-        recursePlaceNodeViews(w, n, r, dag, nodeViews);
+        modX = -modX;
+        recursePlaceNodeViews(w, n, r, dag, nodeViews, distanceFromBottom-1);
     }
 }
 
@@ -72,43 +87,27 @@ void MainWindow::updateDagView()
 
     std::map<INode*, NodeView*> nvs;
 
-    recursePlaceNodeViews(ui->sc_dagWidget, m_head, QRect(0, 0, NodeView::WIDTH, NodeView::HEIGHT), m_dag, nvs);
-//    NodeView* nv = new NodeView(m_head, ui->sc_dagWidget);
-//    nvs.push_back(nv);
-
-//    nv->move(-nv->size().width() / 2, 0);
-//    int y = nv->size().height() + PADDING;
-//    int xMod = 4 * nv->size().width() / 6;
-
-//    int parentX = nv->pos().x();
-//    int maxX = 0;
-//    for (INode* n : m_dag->getConnected(m_head))
-//    {
-//        NodeView* nv2 = new NodeView(n, ui->sc_dagWidget);
-//        nvs.push_back(nv2);
-//        int currentX = parentX + xMod;
-//        maxX = std::max(currentX, maxX);
-//        nv2->move(currentX, y);
-//        xMod = -xMod;
-//    }
+    recursePlaceNodeViews(ui->sc_dagWidget, m_head, QRect(0, 0, NodeView::WIDTH, NodeView::HEIGHT), m_dag, nvs, getDepth(m_dag, m_head));
 
     int maxX = 0;
     int maxY = 0;
+    int minX = 0;
     for (const auto& nvPair : nvs)
     {
         maxX = std::max(maxX, nvPair.second->pos().x());
         maxY = std::max(maxY, nvPair.second->pos().y());
+        minX = std::min(minX, nvPair.second->pos().x());
     }
 
-    // Shift all views into view
+    // Shift all NodeViews into view
     for (const auto& nvPair : nvs)
     {
         auto* nodeView = nvPair.second;
-        nodeView->move(PADDING + nodeView->size().width() + nodeView->pos().x() + maxX, PADDING + nodeView->pos().y());
+        nodeView->move(PADDING_X + nodeView->pos().x() - minX, PADDING_Y + nodeView->pos().y());
     }
 
     // Resize widget in ScrollView
-    ui->sc_dagWidget->setMinimumSize(2* (maxX + NodeView::WIDTH + PADDING), 2 * PADDING + maxY + NodeView::HEIGHT);
+    ui->sc_dagWidget->setMinimumSize(2 * PADDING_X + maxX - minX + NodeView::WIDTH, 2 * PADDING_Y + maxY + NodeView::HEIGHT);
 }
 MainWindow::~MainWindow()
 {
