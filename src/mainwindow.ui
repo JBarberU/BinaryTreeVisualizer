@@ -29,7 +29,7 @@
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="sc_dagWidget">
+      <widget class="DagDrawer" name="sc_dagWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -67,6 +67,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DagDrawer</class>
+   <extends>QWidget</extends>
+   <header>dagdrawer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
